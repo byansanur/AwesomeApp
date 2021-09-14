@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/grid_menu"
+        android:icon="@drawable/ic_round_grid_view_24"
+        app:showAsAction="ifRoom"
+        android:title="@string/grid_view"/>
+
+    <item
+        android:id="@+id/linear_menu"
+        android:icon="@drawable/ic_round_table_rows_24"
+        app:showAsAction="ifRoom"
+        android:title="@string/linear_view"/>
+
+</menu>

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AwesomeApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="image_thumb">image_thumb</string>
+    <string name="credit_author_paxel">Photo by Nicolette Attree from Pexels</string>
+    <string name="grid_view">Grid view</string>
+    <string name="linear_view">Linear view</string>
 </resources>
