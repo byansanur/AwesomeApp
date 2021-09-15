@@ -12,7 +12,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.byansanur.awesomeapp.ApplicationAwesome
 import com.byansanur.awesomeapp.R
+import com.byansanur.awesomeapp.common.InternetConnection
 import com.byansanur.awesomeapp.common.SetAppBar
 import com.byansanur.awesomeapp.data.model.PhotoList
 import com.byansanur.awesomeapp.databinding.FragmentHomeBinding
@@ -103,8 +105,14 @@ class FragmentHome : Fragment(), OnItemClickListener {
                     is LoadState.Error -> {
                         rvListPhoto.isVisible = false
                         val errorMessage = (loadState.source.refresh as LoadState.Error).error
-                        Toast.makeText(context, "message error: $errorMessage", Toast.LENGTH_SHORT).show()
-                        Log.e("TAG", "setViewGrid: message error: $errorMessage")
+                        val internetConnection = InternetConnection(requireContext())
+                        if (!internetConnection.hasNetwork()) {
+                            Toast.makeText(context, "no internet connection", Toast.LENGTH_SHORT).show()
+                            Log.e("TAG", "setViewGrid: message error: no internet connection $errorMessage")
+                        } else {
+                            Toast.makeText(context, "message error: $errorMessage", Toast.LENGTH_SHORT).show()
+                            Log.e("TAG", "setViewGrid: message error: $errorMessage")
+                        }
                     }
                 }
             }
