@@ -1,6 +1,7 @@
 package com.byansanur.awesomeapp.di
 
 import androidx.annotation.WorkerThread
+import com.byansanur.awesomeapp.ApplicationAwesome
 import com.byansanur.awesomeapp.api.ApiService
 import com.byansanur.awesomeapp.common.AUTH_TOKEN
 import com.byansanur.awesomeapp.common.BASE_URL
@@ -8,6 +9,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.CacheControl
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -39,7 +42,7 @@ object NetworkModule {
         httpLoggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
-            .addNetworkInterceptor(httpLoggingInterceptor)
+            .addInterceptor(httpLoggingInterceptor)
             //handle request time out
             .connectTimeout(40, TimeUnit.SECONDS)
             .readTimeout(2, TimeUnit.MINUTES)
@@ -51,6 +54,24 @@ object NetworkModule {
                     .build()
                 val response = chain.proceed(request)
                 response
+            }
+            .addInterceptor { chain ->
+                // offline cache
+                var request = chain.request()
+                if (ApplicationAwesome.hasNetwork()) {
+                    request = request.newBuilder().cacheControl(
+                        CacheControl.Builder().maxStale(1, TimeUnit.DAYS).build()
+                    ).build()
+                }
+                chain.proceed(request)
+            }
+            .addInterceptor { chain ->
+                // cache
+                chain.proceed(
+                    chain.request().newBuilder().cacheControl(
+                        CacheControl.Builder().maxStale(1, TimeUnit.DAYS).build()
+                    ).build()
+                )
             }
             .build()
     }

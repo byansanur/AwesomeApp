@@ -3,7 +3,6 @@ package com.byansanur.awesomeapp.data.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.byansanur.awesomeapp.api.ApiService
-import com.byansanur.awesomeapp.common.START_PAGING
 import com.byansanur.awesomeapp.data.model.PhotoList
 import retrofit2.HttpException
 import java.io.IOException
