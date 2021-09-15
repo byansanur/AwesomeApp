@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
+    android:background="?attr/selectableItemBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <ImageView
@@ -28,13 +29,5 @@
         app:layout_constraintVertical_bias="0.0"
         tools:text="@tools:sample/lorem/random" />
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="?attr/colorOnPrimary"
-        app:layout_constraintEnd_toEndOf="@id/tv_description"
-        app:layout_constraintStart_toStartOf="@id/tv_description"
-        app:layout_constraintBottom_toBottomOf="@id/img_thumb"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,7 +16,7 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:toolbarId="@+id/toolbar"
+            app:toolbarId="@+id/toolbarDetails"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="?attr/colorPrimary"
             app:titleEnabled="false"
@@ -30,7 +30,7 @@
                 android:contentDescription="@string/image_details_photographer"/>
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/toolbarDetails"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_width="match_parent"
                 app:titleTextColor="@color/color_secondary"

@@ -55,6 +55,7 @@ object NetworkModule {
                 val response = chain.proceed(request)
                 response
             }
+                /*
             .addInterceptor { chain ->
                 // offline cache
                 var request = chain.request()
@@ -73,6 +74,7 @@ object NetworkModule {
                     ).build()
                 )
             }
+                 */
             .build()
     }
 

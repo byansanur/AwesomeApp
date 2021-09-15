@@ -34,8 +34,6 @@ class FragmentHome : Fragment(), OnItemClickListener {
 
     private val viewModel : PhotosViewModel by viewModels()
 
-    private var isFirstViewGrid = false
-
     private var itemGrid: MenuItem? = null
     private var itemLinear: MenuItem? = null
     private var listMenuItem: MutableList<MenuItem> = ArrayList()
@@ -45,11 +43,7 @@ class FragmentHome : Fragment(), OnItemClickListener {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -86,7 +80,6 @@ class FragmentHome : Fragment(), OnItemClickListener {
     }
 
     private fun setViewGrid() {
-        isFirstViewGrid = true
         val adapterGrid = PhotosAdapterGrid(this)
 
         binding.apply {
@@ -119,7 +112,6 @@ class FragmentHome : Fragment(), OnItemClickListener {
     }
 
     private fun setViewLinear() {
-        isFirstViewGrid = false
         val adapterLinear = PhotosAdapterLinear(this)
 
         binding.apply {
