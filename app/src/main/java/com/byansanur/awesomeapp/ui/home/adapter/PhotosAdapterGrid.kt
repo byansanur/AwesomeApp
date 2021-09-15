@@ -1,5 +1,8 @@
 package com.byansanur.awesomeapp.ui.home.adapter
 
+import android.os.Build
+import android.text.Html
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -18,7 +21,7 @@ import com.byansanur.awesomeapp.databinding.ItemPhotoGridBinding
  * Created by byansanur on 9/14/2021.
  * ratbyansanur81@gmail.com
  */
-class PhotosAdapterGrid(private val listener: OnItemClickListener) :
+class PhotosAdapterGrid (private val listener: OnItemClickListener) :
     PagingDataAdapter<PhotoList, PhotosAdapterGrid.Holder>(DIFF_UTIL){
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
@@ -56,23 +59,14 @@ class PhotosAdapterGrid(private val listener: OnItemClickListener) :
                             .error(R.drawable.ic_baseline_broken_image_24)
                             .into(imgThumb)
 
-                        tvDescription.text = photo.photographer
+                        val textHtml = "hi, i'm <b>${photo.photographer}<b>. <a href=\"${photo.photographerUrl}\">Follow</a> " +
+                                "and <a href=\"${photo.url}\">Like my photo</a> on paxels"
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            tvDescription.text = Html.fromHtml(textHtml, Html.FROM_HTML_MODE_LEGACY)
+                        } else tvDescription.text = Html.fromHtml(textHtml)
+                        tvDescription.movementMethod = LinkMovementMethod.getInstance()
                     }
                 }
             }
-
-    interface OnItemClickListener {
-        fun onItemClick(photo: PhotoList)
-    }
-
-//    companion object {
-//        private val DIFF_UTILS = object : DiffUtil.ItemCallback<PhotoList>() {
-//            override fun areItemsTheSame(oldItem: PhotoList, newItem: PhotoList): Boolean =
-//                oldItem.id == newItem.id
-//
-//            override fun areContentsTheSame(oldItem: PhotoList, newItem: PhotoList): Boolean =
-//                oldItem == newItem
-//
-//        }
-//    }
 }

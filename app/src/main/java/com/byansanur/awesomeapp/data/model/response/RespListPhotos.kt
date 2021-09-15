@@ -1,5 +1,6 @@
 package com.byansanur.awesomeapp.data.model.response
 import com.byansanur.awesomeapp.data.model.PhotoList
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
@@ -10,5 +11,6 @@ import com.google.gson.annotations.SerializedName
  */
 data class RespListPhotos(
     @SerializedName("photos")
+    @Expose
     val photos: List<PhotoList>
 )

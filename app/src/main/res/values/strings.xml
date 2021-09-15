@@ -5,4 +5,5 @@
     <string name="credit_author_paxel">Photo by Nicolette Attree from Pexels</string>
     <string name="grid_view">Grid view</string>
     <string name="linear_view">Linear view</string>
+    <string name="image_details_photographer">image details photographer</string>
 </resources>

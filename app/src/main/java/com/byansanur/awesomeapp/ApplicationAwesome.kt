@@ -9,5 +9,4 @@ import dagger.hilt.android.HiltAndroidApp
  * ratbyansanur81@gmail.com
  */
 @HiltAndroidApp
-class ApplicationAwesome : Application() {
-}
+class ApplicationAwesome : Application()

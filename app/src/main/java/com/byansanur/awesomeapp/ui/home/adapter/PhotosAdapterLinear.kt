@@ -1,5 +1,8 @@
 package com.byansanur.awesomeapp.ui.home.adapter
 
+import android.os.Build
+import android.text.Html
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -18,7 +21,7 @@ import com.byansanur.awesomeapp.databinding.ItemPhotoLinearBinding
  * Created by byansanur on 9/14/2021.
  * ratbyansanur81@gmail.com
  */
-class PhotosAdapterLinear(private val listener: OnItemClickListenerLinear) :
+class PhotosAdapterLinear(private val listener: OnItemClickListener) :
     PagingDataAdapter<PhotoList, PhotosAdapterLinear.LinearHolder>(DIFF_UTIL) {
 
 
@@ -38,13 +41,19 @@ class PhotosAdapterLinear(private val listener: OnItemClickListenerLinear) :
                 binding.apply {
                     Glide.with(itemView)
                         .load(photo.src.portrait)
-                        .centerInside()
+                        .centerCrop()
                         .transition(DrawableTransitionOptions.withCrossFade())
                         .apply(RequestOptions.bitmapTransform(RoundedCorners(10)))
                         .error(R.drawable.ic_baseline_broken_image_24)
                         .into(imgThumb)
 
-                    tvDescription.text = photo.photographer
+                    val textHtml = "hi, i'm <b>${photo.photographer}<b> <a href=\"${photo.photographerUrl}\">Follow</a> " +
+                            "and <a href=\"${photo.url}\">Like my photo</a> on paxels"
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        tvDescription.text = Html.fromHtml(textHtml, Html.FROM_HTML_MODE_LEGACY)
+                    } else tvDescription.text = Html.fromHtml(textHtml)
+                    tvDescription.movementMethod = LinkMovementMethod.getInstance()
                 }
             }
     }
@@ -63,12 +72,6 @@ class PhotosAdapterLinear(private val listener: OnItemClickListenerLinear) :
             false
         )
         return LinearHolder(binding)
-    }
-
-
-
-    interface OnItemClickListenerLinear {
-        fun onItemClick(photo: PhotoList)
     }
 
 

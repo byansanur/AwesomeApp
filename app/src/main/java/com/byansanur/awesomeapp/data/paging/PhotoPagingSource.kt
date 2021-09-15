@@ -18,16 +18,17 @@ class PhotoPagingSource @Inject constructor(
     private val apiService: ApiService
 ) : PagingSource<Int, PhotoList>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PhotoList> {
-        val position = params.key ?: START_PAGING
 
         return try {
+            val position = params.key ?: 1
             val response = apiService.getPhotos(position, params.loadSize)
-            val photoList = response.photos
+            val prevKey = if (position > 1) position - 1 else null
+            val nextKey = if (response.photos.isNotEmpty()) position + 1 else null
 
             LoadResult.Page(
-                data = photoList,
-                prevKey = if (position == START_PAGING) null else position -1,
-                nextKey = if (photoList.isEmpty()) null else position + 1
+                data = response.photos,
+                prevKey = prevKey,
+                nextKey = nextKey
             )
         } catch (ioEx: IOException) {
             LoadResult.Error(ioEx)
@@ -37,7 +38,10 @@ class PhotoPagingSource @Inject constructor(
     }
 
     override fun getRefreshKey(state: PagingState<Int, PhotoList>): Int? {
-        return null
+        return state.anchorPosition?.let {
+            state.closestPageToPosition(it)?.prevKey?.plus(1)
+                ?: state.closestPageToPosition(it)?.nextKey?.minus(1)
+        }
     }
 
 }

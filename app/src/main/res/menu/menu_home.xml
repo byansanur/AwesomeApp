@@ -5,13 +5,13 @@
     <item
         android:id="@+id/grid_menu"
         android:icon="@drawable/ic_round_grid_view_24"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:title="@string/grid_view"/>
 
     <item
         android:id="@+id/linear_menu"
         android:icon="@drawable/ic_round_table_rows_24"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:title="@string/linear_view"/>
 
 </menu>
