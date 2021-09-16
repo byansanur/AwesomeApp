@@ -3,7 +3,6 @@ package com.byansanur.awesomeapp.ui.home
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -12,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.byansanur.awesomeapp.ApplicationAwesome
 import com.byansanur.awesomeapp.R
 import com.byansanur.awesomeapp.common.InternetConnection
 import com.byansanur.awesomeapp.common.SetAppBar
