@@ -19,10 +19,15 @@ class PhotoPagingSource @Inject constructor(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PhotoList> {
 
         return try {
-            val position = params.key ?: 1
-            val response = apiService.getPhotos(position, params.loadSize)
-            val prevKey = if (position > 1) position - 1 else null
-            val nextKey = if (response.photos.isNotEmpty()) position + 1 else null
+            val page = params.key ?: 1
+            val response = apiService.getPhotos(page, params.loadSize)
+            val prevKey =
+                if (page > 1) page - 1
+                else null
+            val nextKey =
+                if (response.photos.isNotEmpty()) page + 1
+                else null
+
 
             LoadResult.Page(
                 data = response.photos,

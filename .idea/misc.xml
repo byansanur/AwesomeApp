@@ -3,9 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Have fun/AwesomeApp/app/src/main/res/drawable/bg_storke_button.xml" value="0.23425925925925925" />
         <entry key="..\:/Have fun/AwesomeApp/app/src/main/res/drawable/ic_round_arrow_back_ios_24.xml" value="0.18055555555555555" />
+        <entry key="..\:/Have fun/AwesomeApp/app/src/main/res/drawable/ic_round_error_outline_24.xml" value="0.23425925925925925" />
         <entry key="..\:/Have fun/AwesomeApp/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
-        <entry key="..\:/Have fun/AwesomeApp/app/src/main/res/layout/fragment_details_photos.xml" value="0.1" />
+        <entry key="..\:/Have fun/AwesomeApp/app/src/main/res/layout/error_view.xml" value="0.3723958333333333" />
+        <entry key="..\:/Have fun/AwesomeApp/app/src/main/res/layout/fragment_details_photos.xml" value="0.3333333333333333" />
         <entry key="..\:/Have fun/AwesomeApp/app/src/main/res/layout/fragment_home.xml" value="0.14666666666666667" />
         <entry key="..\:/Have fun/AwesomeApp/app/src/main/res/layout/item_photo_grid.xml" value="0.3723958333333333" />
         <entry key="..\:/Have fun/AwesomeApp/app/src/main/res/layout/item_photo_linear.xml" value="0.3723958333333333" />

@@ -83,36 +83,47 @@ class FragmentHome : Fragment(), OnItemClickListener {
 
     private fun setViewGrid() {
         val adapterGrid = PhotosAdapterGrid(this)
+        val internetConnection = InternetConnection(requireContext())
+        if (!internetConnection.hasNetwork()) {
+            binding.apply {
+                flError.isVisible = true
+                incError.tvErrorMessage.text = getString(R.string.no_internet_message)
+                incError.buttonRetry.setOnClickListener {
+                    getDataGrid(adapterGrid)
+                    adapterGrid.retry()
+                }
+            }
+        } else getDataGrid(adapterGrid)
 
+    }
+
+    private fun getDataGrid(adapterGrid: PhotosAdapterGrid) {
         binding.apply {
             rvListPhoto.isNestedScrollingEnabled = true
-            rvListPhoto.adapter = adapterGrid.withLoadStateHeaderAndFooter(
-                header = PhotoLoadStateAdapter { adapterGrid.retry() },
+            rvListPhoto.adapter = adapterGrid.withLoadStateFooter(
                 footer = PhotoLoadStateAdapter { adapterGrid.retry() }
             )
             rvListPhoto.layoutManager = StaggeredGridLayoutManager(2, 1)
         }
-
         viewModel.photos.observe(viewLifecycleOwner) {
             adapterGrid.submitData(viewLifecycleOwner.lifecycle, it)
         }
-
         adapterGrid.addLoadStateListener { loadState ->
             binding.apply {
                 when(loadState.source.refresh) {
-                    is LoadState.Loading -> rvListPhoto.isVisible = false
-                    is LoadState.NotLoading -> rvListPhoto.isVisible = true
+                    is LoadState.Loading -> {
+                        flError.isVisible = false
+                        rvListPhoto.isVisible = true
+                    }
+                    is LoadState.NotLoading -> {
+                        flError.isVisible = false
+                        rvListPhoto.isVisible = true
+                    }
                     is LoadState.Error -> {
                         rvListPhoto.isVisible = false
+                        flError.isVisible = true
                         val errorMessage = (loadState.source.refresh as LoadState.Error).error
-                        val internetConnection = InternetConnection(requireContext())
-                        if (!internetConnection.hasNetwork()) {
-                            Toast.makeText(context, "no internet connection", Toast.LENGTH_SHORT).show()
-                            Log.e("TAG", "setViewGrid: message error: no internet connection $errorMessage")
-                        } else {
-                            Toast.makeText(context, "message error: $errorMessage", Toast.LENGTH_SHORT).show()
-                            Log.e("TAG", "setViewGrid: message error: $errorMessage")
-                        }
+                        Log.e("TAG", "setViewGrid: message error: $errorMessage")
                     }
                 }
             }
@@ -121,7 +132,22 @@ class FragmentHome : Fragment(), OnItemClickListener {
 
     private fun setViewLinear() {
         val adapterLinear = PhotosAdapterLinear(this)
+        val internetConnection = InternetConnection(requireContext())
+        if (internetConnection.hasNetwork()) {
+            getDataLinear(adapterLinear)
+        } else {
+            binding.apply {
+                flError.isVisible = true
+                incError.tvErrorMessage.text = getString(R.string.no_internet_message)
+                incError.buttonRetry.setOnClickListener {
+                    getDataLinear(adapterLinear)
+                    adapterLinear.retry()
+                }
+            }
+        }
+    }
 
+    private fun getDataLinear(adapterLinear: PhotosAdapterLinear) {
         binding.apply {
             rvListPhoto.isNestedScrollingEnabled = true
             rvListPhoto.adapter = adapterLinear.withLoadStateHeaderAndFooter(
@@ -136,12 +162,18 @@ class FragmentHome : Fragment(), OnItemClickListener {
         adapterLinear.addLoadStateListener { loadState ->
             binding.apply {
                 when(loadState.source.refresh) {
-                    is LoadState.Loading -> rvListPhoto.isVisible = false
-                    is LoadState.NotLoading -> rvListPhoto.isVisible = true
+                    is LoadState.Loading -> {
+                        flError.isVisible = false
+                        rvListPhoto.isVisible = false
+                    }
+                    is LoadState.NotLoading -> {
+                        flError.isVisible = false
+                        rvListPhoto.isVisible = true
+                    }
                     is LoadState.Error -> {
+                        flError.isVisible = true
                         rvListPhoto.isVisible = false
                         val errorMessage = (loadState.source.refresh as LoadState.Error).error
-                        Toast.makeText(context, "message error: $errorMessage", Toast.LENGTH_SHORT).show()
                         Log.e("TAG", "setViewGrid: message error: $errorMessage")
                     }
                 }
